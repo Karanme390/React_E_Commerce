@@ -7,6 +7,8 @@ function Checkout() {
     address: '',
   });
 
+  const [showDialog, setShowDialog] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -14,7 +16,11 @@ function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Order submitted:', formData);
-    
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
   };
 
   return (
@@ -55,6 +61,18 @@ function Checkout() {
         </div>
         <button type="submit">Place Order</button>
       </form>
+      {showDialog && (
+        <div className="dialog-overlay">
+          <div className="dialog-container">
+            <div className="dialog-header">
+              <p>Your order placed successfully</p>
+            </div>
+            <div className="dialog-body">
+              <button onClick={handleCloseDialog}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
